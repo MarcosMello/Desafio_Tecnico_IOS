@@ -6,23 +6,28 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXFileReference section */
+		8DEB81DC2B28F4B5007C8BB4 /* Jukebox.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Jukebox.playground; path = ../Jukebox.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
-		8DC7AF862B28D13800D81F90 = {
+		8DEB81D52B28F49A007C8BB4 = {
 			isa = PBXGroup;
 			children = (
+				8DEB81DC2B28F4B5007C8BB4 /* Jukebox.playground */,
 			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXProject section */
-		8DC7AF872B28D13800D81F90 /* Project object */ = {
+		8DEB81D62B28F49A007C8BB4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1500;
 			};
-			buildConfigurationList = 8DC7AF8A2B28D13800D81F90 /* Build configuration list for PBXProject "Desafio_Tecnico_IOS" */;
+			buildConfigurationList = 8DEB81D92B28F49A007C8BB4 /* Build configuration list for PBXProject "Jukebox" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -30,7 +35,7 @@
 				en,
 				Base,
 			);
-			mainGroup = 8DC7AF862B28D13800D81F90;
+			mainGroup = 8DEB81D52B28F49A007C8BB4;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -39,13 +44,13 @@
 /* End PBXProject section */
 
 /* Begin XCBuildConfiguration section */
-		8DC7AF8B2B28D13800D81F90 /* Debug */ = {
+		8DEB81DA2B28F49A007C8BB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 			};
 			name = Debug;
 		};
-		8DC7AF8C2B28D13800D81F90 /* Release */ = {
+		8DEB81DB2B28F49A007C8BB4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 			};
@@ -54,16 +59,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8DC7AF8A2B28D13800D81F90 /* Build configuration list for PBXProject "Desafio_Tecnico_IOS" */ = {
+		8DEB81D92B28F49A007C8BB4 /* Build configuration list for PBXProject "Jukebox" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8DC7AF8B2B28D13800D81F90 /* Debug */,
-				8DC7AF8C2B28D13800D81F90 /* Release */,
+				8DEB81DA2B28F49A007C8BB4 /* Debug */,
+				8DEB81DB2B28F49A007C8BB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 8DC7AF872B28D13800D81F90 /* Project object */;
+	rootObject = 8DEB81D62B28F49A007C8BB4 /* Project object */;
 }
