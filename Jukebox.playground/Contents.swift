@@ -1,37 +1,83 @@
 import Foundation
 
 struct Jukebox{
-    var musicQueue: Queue<EnqueuedMusic>
-    var popularityDictionary: Dictionary<Music, UInt64>
+    var musicQueue: Queue<EnqueuedMusic> = Queue()
+    var musicsDictionary: CustomDictionary<Music>
+    var popularityDictionary: Dictionary<Music, UInt>
     var musicPrice: UInt64
     
-    /* O Jukebox deve conter a função de escolher a música que utiliza como dado de entrada o id da música e o usuário que a escolheu, e outra função de mesmo nome que utiliza como dados de entrada o nome da música e o usuário que a escolheu, essas duas funções devem enfileirar as músicas escolhidas e cobrar do usuário o preço pela escolha da música. */
-    //escolherMusica(id musica, id user)
-    //escolherMusica(nome musica, nomeuser)
+    public init(
+        musicsDictionary: CustomDictionary<Music>,
+        popularityDictionary: Dictionary<Music, UInt>,
+        musicPrice: UInt64
+    ){
+        self.musicsDictionary = musicsDictionary
+        self.popularityDictionary = popularityDictionary
+        self.musicPrice = musicPrice
+    }
     
-    /* Outras duas funções de consultas de músicas também devem estar disponíveis na Jukebox uma pelo id e outra pelo nome da musica. */
-    //consultaMusica(id musica)
-    //consultaMusica(nome musica)
+    @discardableResult
+    public mutating func enqueueMusic(forKey key: UInt, user: inout User) -> Bool{
+        guard let music = getMusic(forKey: key),
+                user.consumeFunds(value: musicPrice) else{
+            return false
+        }
+        
+        let enqueuedMusic: EnqueuedMusic = EnqueuedMusic(music: music, user: user)
+        
+        musicQueue.enqueue(value: enqueuedMusic)
+        
+        return true
+    }
     
-    /* Também deve estar disponível uma consulta de todas as músicas disponíveis e todas as músicas de determinado artista passando por id ou pelo nome do artista. */
-    //todasMusicas()
-    //consultaMusicasPorArtista(id artista)
-    //consultaMusicasPorArtista(nome artista)
+    @discardableResult
+    public mutating func enqueueMusic(forKey key: String, user: inout User) -> Bool{
+        guard let musics = getMusic(forKey: key),
+                user.consumeFunds(value: musicPrice) else{
+            return false
+        }
+        
+        let music: Music = selectMusicFromArray(musicArray: musics)
+        
+        let enqueuedMusic: EnqueuedMusic = EnqueuedMusic(music: music, user: user)
+        
+        musicQueue.enqueue(value: enqueuedMusic)
+        
+        return true
+    }
+    
+    public func getMusic(forKey key: UInt) -> Music?{
+        musicsDictionary.getMusic(forKey: key)
+    }
+    
+    public func getMusic(forKey key: String) -> Array<Music>?{
+        musicsDictionary.getMusic(forKey: key)
+    }
+    
+    func getAllMusics() -> Array<Music>?{
+        musicsDictionary.getAllMusics()
+    }
+    
+    func getMusicsByArtists(forKey key: UInt) -> Array<Music>?{
+        musicsDictionary.getMusicsFromArtist(forKey: key)
+    }
+    
+    func getMusicsByArtists(forKey key: String) -> Array<Music>?{
+        musicsDictionary.getMusicsFromArtist(forKey: key)
+    }
     
     @discardableResult
     mutating func nextMusic() -> Node<EnqueuedMusic>?{
         musicQueue.dequeue()
     }
-
-    /* O Jukebox deve saber como retirar uma música já escolhida (sem estorno para o usuário) e como listar as músicas mais tocadas (mais escolhidas) quando for solicitado */
     
     @discardableResult
     mutating func removeMusicFromQueue(music: Music, user: User) -> Node<EnqueuedMusic>?{
         musicQueue.remove(value: EnqueuedMusic(music: music, user: user))
     }
     
-    func getMusicsByRankedPopularity() -> Array<(Music, UInt64)>{
-        let entries = popularitySet.sorted { $0.1 > $1.1 }
+    func getMusicsByRankedPopularity() -> Array<(Music, UInt)>{
+        let entries = popularityDictionary.sorted { $0.1 > $1.1 }
         
         return entries
     }
@@ -47,82 +93,28 @@ struct Jukebox{
     }
 }
 
-var queue: Queue<EnqueuedMusic> = Queue();
-
-var u1 = User(id: 1, name: "Marcos", funds: 10000)
-var a1 = Artist(id: 1, name: "Taylor Swift")
-var m1 = Music(id: 1, name: "Welcome To New York", artist: a1, durationInSeconds: 300, score: 5.0)
-var m2 = Music(id: 2, name: "Bad Blood", artist: a1, durationInSeconds: 300, score: 5.0)
-var m3 = Music(id: 3, name: "Clean", artist: a1, durationInSeconds: 300, score: 5.0)
-var m4 = Music(id: 4, name: "New Romantics", artist: a1, durationInSeconds: 300, score: 5.0)
-
-m1.name
-
-queue.isEmpty
-queue.size
-queue.enqueue(value: EnqueuedMusic(music: m1, user: u1))
-queue.enqueue(value: EnqueuedMusic(music: m2, user: u1))
-queue.enqueue(value: EnqueuedMusic(music: m3, user: u1))
-queue.enqueue(value: EnqueuedMusic(music: m4, user: u1))
-queue.description
-
-queue.dequeue()
-queue.size
-queue.description
-
-queue.remove(value: EnqueuedMusic(music: m3, user: u1))
-queue.size
-queue.description
-
-var musicDictionary: Dictionary<String, Array<Music>> = Dictionary()
-musicDictionary.updateValue([m1], forKey: String(1))
-var ls = musicDictionary[String(1)]
-ls?.append(m2)
-musicDictionary.updateValue(ls!, forKey: String(1))
-musicDictionary
-
-var popularitySet: Dictionary<Music, UInt64> = Dictionary()
-popularitySet[m1] = 100
-popularitySet[m2] = 80
-popularitySet[m3] = 140
-popularitySet[m4] = 200
-
-let entries = popularitySet.sorted { $0.1 > $1.1 }
-type(of: entries)
-for entry in entries{
-    print(entry)
+func readLineInt() -> String?{  //Função utilizada para simular a leitura de linha
+    String(0)
 }
 
-UInt64.max
-print(UInt64.max)
-
-let customDictionary: CustomDictionary<Music> = CustomDictionary()
-customDictionary.add(m1)
-customDictionary.add(m2)
-customDictionary.add(m3)
-customDictionary.add(m4)
-
-var m1_2 = Music(id: 1, name: "You Are In Love", artist: a1, durationInSeconds: 300, score: 5.0)
-customDictionary.add(m1_2)
-customDictionary
-
-var a2 = Artist(id: 2, name: "TS Cover")
-var m5 = Music(id: 5, name: "Welcome To New York", artist: a2, durationInSeconds: 300, score: 5.0)
-customDictionary.add(m5)
-customDictionary
-
-var m6 = Music(id: 6, name: "New Romantics", artist: a2, durationInSeconds: 300, score: 5.0)
-customDictionary.add(m6)
-customDictionary
-
-customDictionary.removeAll(forKey: "Welcome To New York")
-customDictionary
-
-customDictionary.removeAll(forKey: 2)
-customDictionary
-
-customDictionary.removeAll(forKey: 6)
-customDictionary
-
-customDictionary.removeAll(forKey: 6)
-customDictionary
+func selectMusicFromArray(musicArray: Array<Music>) -> Music{
+    musicArray.enumerated().forEach { print("\($0) - \($1)") }
+    
+    var selected: Int = -1
+    
+    while selected < 0 || selected >= musicArray.count {
+        guard let lineRead = readLineInt() else{
+            print("Tente novamente!")
+            continue
+        }
+        
+        guard let stringConverted = Int(lineRead) else{
+            print("Tente novamente!")
+            continue
+        }
+        
+        selected = stringConverted
+    }
+    
+    return musicArray[selected]
+}
