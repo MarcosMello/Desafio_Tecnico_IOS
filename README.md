@@ -22,7 +22,7 @@
 * (Branch API_Spotify) Adicionar conexão com [API do Spotify](https://developer.spotify.com/documentation/web-api), com foco em [playlists](https://developer.spotify.com/documentation/web-api/reference/get-playlists-tracks);
 * Sair de Playground para Command Line Tool para poder fazer uma interface no terminal para interação com usuário;
 * Reescrever e melhorar CustomDictionary, a fim de torna-lá mais legivel e eficiente;
-* Utilizar [biblioteca oficial de estruturas de dados da Apple](https://github.com/apple/swift-collections) para substituir Queue - que utiliza uma abordagem de lista duplamente encadeada com apontamentos para o inicio e fim - pela Deque - que utiliza listas circulares com com apontamentos para o inicio e fim.
+* Utilizar [biblioteca oficial de estruturas de dados da Apple](https://github.com/apple/swift-collections) para substituir Queue - que utiliza uma abordagem de lista duplamente encadeada com apontamentos para o inicio e fim - pela Deque - que utiliza listas circulares com apontamentos para o inicio e fim.
 
 ### Implementação de Node e Queue
 
