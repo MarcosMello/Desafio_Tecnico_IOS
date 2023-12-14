@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Artist: Equatable, Hashable{
+public struct Artist: Equatable, Hashable, CustomStringConvertible{
     public let id: UInt
     public let name: String
     
@@ -12,9 +12,13 @@ public struct Artist: Equatable, Hashable{
     public static func == (lhs: Artist, rhs: Artist) -> Bool{
         lhs.id == rhs.id
     }
+    
+    public var description: String{
+        "(\(name) (\(id)))"
+    }
 }
 
-public struct Music: Equatable, Hashable{
+public struct Music: Equatable, Hashable, CustomStringConvertible{
     public let id: UInt
     public let name: String
     public let artist: Artist
@@ -32,9 +36,13 @@ public struct Music: Equatable, Hashable{
     public static func == (lhs: Music, rhs: Music) -> Bool{
         lhs.id == rhs.id
     }
+    
+    public var description: String {
+        "(\(id) - \(name) by \(String(describing: artist)) with duration of \(durationInSeconds) - \(score) stars)"
+    }
 }
 
-public struct User: Equatable{
+public struct User: Equatable, CustomStringConvertible{
     public let id: UInt
     public let name: String
     var funds: UInt64
@@ -61,6 +69,12 @@ public struct User: Equatable{
             self.funds -= value
             return true
         }
+    }
+    
+    public var description: String{
+        let formatting = funds.quotientAndRemainder(dividingBy: 100)
+        
+        return "(\(id) - \(name) with funds of R$ \(formatting.quotient).\(formatting.remainder < 10 ? "0" + String(formatting.remainder) : String(formatting.remainder)))"
     }
 }
 
