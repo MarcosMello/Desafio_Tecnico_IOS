@@ -24,7 +24,7 @@
 * Reescrever e melhorar CustomDictionary, a fim de torna-lá mais legivel e eficiente;
 * Utilizar [biblioteca oficial de estruturas de dados da Apple](https://github.com/apple/swift-collections) para substituir Queue - que utiliza uma abordagem de lista duplamente encadeada com apontamentos para o inicio e fim - pela Deque - que utiliza listas circulares com apontamentos para o inicio e fim.
 
-### Implementação de Node e Queue
+### Implementação CustomDictionary
 
 #### CustomDictionary
 * Classe utilizada para as funções relacionadas as buscas de músicas, atráves de seus ids e nome, ou por ids e nome de Artistas. Nessa, tem-se dois dicionarios que são a parte principal dessa, uma vez que atráves dessa estrutura é possível realizar buscas em tempo amortizado de O(1) - que é importante uma vez que a principal operação é a get;
